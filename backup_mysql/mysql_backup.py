@@ -3,6 +3,7 @@ import os
 import time
 import datetime
 import pipes
+from config import Config
 from logger import log
  
 def auth_db(x):
@@ -28,10 +29,10 @@ def backup():
     dir_check()
     log.warning("starting dump ...")
     log.info("it will take a few minutes")
-    dumpcmd = "mysqldump -h " + auth_db("db_host") + " -u " + auth_db("db_user") + " -p" + auth_db("db_password") + " " + auth_db("db_name") + " > " + pipes.quote(TODAYBACKUPPATH) + "/" + auth_db("db_name") + ".sql"
+    dumpcmd = "mysqldump -h " + str(Config.host) + " -u " + str(Config.username) + " -p" + str(Configpassword) + " " + str(Config.database) + " > " + pipes.quote(TODAYBACKUPPATH) + "/" + str(Config.database) + ".sql"
     os.system(dumpcmd)
     log.info("compressing dump file ... ")
-    gzipcmd = "gzip " + pipes.quote(TODAYBACKUPPATH) + "/" + auth_db("db_name") + ".sql"
+    gzipcmd = "gzip " + pipes.quote(TODAYBACKUPPATH) + "/" + str(Config.database) + ".sql"
     os.system(gzipcmd)
     log.info("Backup script completed")
     log.info("Your backups have been created in '" + TODAYBACKUPPATH + "' directory")
