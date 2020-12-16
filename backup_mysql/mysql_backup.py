@@ -6,7 +6,8 @@ import pipes
 from config import Config
 from logger import log
  
-def auth_db(x):
+# if you dont wana to use config class , you can use this function to parse your credentials
+ def auth_db(x):
     database_auth = {'db_host': 'localhost', 'db_name': 'DATABASE_NAME', 'db_user': 'DB_USER', 'db_password': 'DB_PASS'}
     return database_auth[x]
  
